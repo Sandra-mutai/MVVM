@@ -1,11 +1,12 @@
-package com.example.formapp.models
+package com.example.first_app.models
 
 import com.google.gson.annotations.SerializedName
 
-data class loginRequest(
-    var massage:String,
-    @SerializedName("access_token")
-    var accessToken:String,
-    @SerializedName("student_id")
-    var student_id:String,
+
+data class RegistrationRequest(
+    var name: String,
+    @SerializedName("phone_number") var phoneNumber:String,
+    var email:String,
+    var nationality:String,
+    @SerializedName("date_of_birth") var dateOfBirth:String,
 )

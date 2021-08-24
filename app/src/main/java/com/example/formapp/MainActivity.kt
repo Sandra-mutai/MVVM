@@ -1,11 +1,14 @@
 package com.example.first_app.UI
 
 
+import android.content.Context
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.*
 import androidx.activity.viewModels
 import com.example.first_app.models.RegistrationRequest
+import com.example.formapp.Constants
 import com.example.formapp.R
 import com.example.formapp.databinding.ActivityMainBinding
 import com.example.registration.ViewModel.UserViewModel
@@ -16,6 +19,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var binding: ActivityMainBinding
     val userViewModel: UserViewModel by viewModels()
     val loginViewModel: loginViewModel by viewModels()
+    lateinit var sharesPref:SharedPreferences
 
 
 
@@ -23,8 +27,12 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        setContentView(R.layout.activity_main)
-
+        var sharedPrefs = getSharedPreferences(Constants.PREFS_FILES, MODE_PRIVATE)
+//        setupSpinner()
+//        setupRegister()
+fun redirectUser(){
+    var token =sharedPrefs.getString(Constants.ACCESS_TOKEN,Constants.EMPTY_STRING)
+}
 
         fun setupSpinner() {
             var nationalities = arrayOf("Kenya", "Uganda", "Rwanda", "SouthSudan")
@@ -51,14 +59,14 @@ class MainActivity : AppCompatActivity() {
                 var email = binding.etemaill.text.toString()
                 var phone_number = binding.etnumber.text.toString()
                 var id_number = binding.etno.text.toString()
-//                var nationality = binding.spnnationality.selectItem.toString
+                var nationality = binding.spnnationality.text.toString()
 
 
                 var registrationRequest = RegistrationRequest(
                     name = name,
                     phoneNumber = phone_number,
                     email = email,
-//                  nationality = nationality,
+                    nationality = nationality,
                     dateOfBirth = date_of_birth,
                 )
                 userViewModel.registerStudent(registrationRequest)
@@ -81,7 +89,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun inResume() {
-//        super.inRume()
+        super.onResume()
         loginViewModel.registrationResponseLiveData.observe(this, { regResponse ->
             if (!regResponse.studentId.isNullOrEmpty()) {
                 Toast.makeText(baseContext, "login success", Toast.LENGTH_LONG).show()
