@@ -2,7 +2,6 @@ package com.example.Form_app.UI
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-//import com.example.first_app.R
 import com.example.formapp.R
 
 class login : AppCompatActivity() {
